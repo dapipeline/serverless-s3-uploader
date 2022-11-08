@@ -28,11 +28,11 @@ exports.handler = async (event) => {
 
 const getUploadURL = async function() {
   const actionId = parseInt(Math.random()*10000000)
-  
+
   const s3Params = {
     Bucket: process.env.UploadBucket,
-    Key:  `${actionId}.jpg`,
-    ContentType: 'image/jpeg' // Update to match whichever content type you need to upload
+    Key:  `${actionId}.csv`,
+    ContentType: 'data:text/csv' // Update to match whichever content type you need to upload
     //ACL: 'public-read'      // Enable this setting to make the object publicly readable - only works if the bucket can support public objects
   }
 
@@ -47,7 +47,7 @@ const getUploadURL = async function() {
       },
       "body": JSON.stringify({
           "uploadURL": s3.getSignedUrl('putObject', s3Params),
-          "photoFilename": `${actionId}.jpg`
+          "csvFilename": `${actionId}.csv`
       })
     })
   })
